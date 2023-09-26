@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+function Dates({inputValue, onFieldChange}) {
+  if (!inputValue) {
+      return null; // Atau tampilkan pesan kesalahan atau tindakan lain sesuai kebutuhan Anda
+      }
+  const operator = inputValue.operator
 
-function Dates() {
-  const [operator, setOperator] = useState('more then')
-
-  const handleChange = (event) => {
+  const handleChange = (event, key) => {
     const operationValue = event.target.value
-    setOperator(operationValue)
+    console.log(operationValue)
+    onFieldChange("order_date", key, operationValue)
   }
 
   return (
@@ -17,7 +19,7 @@ function Dates() {
             <select
                 name="operation" 
                 id="operation"
-                onChange={handleChange}
+                onChange={(event) => handleChange(event, 'operator')}
                 className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-2.5'
             >
                 <option value="more then">more then</option>
@@ -29,7 +31,10 @@ function Dates() {
           operator === 'between' ? (
             <div className='flex w-full gap-x-2'>
                 <div className='w-full'>
-                    <input 
+                    <input
+                        name='startDate'
+                        id='startDate'
+                        onChange={(event) => handleChange(event, 'startDate')}
                         type="date"
                         placeholder='start date'
                         className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'
@@ -39,7 +44,10 @@ function Dates() {
                     <p>-</p>
                 </div>
                 <div className='w-full'>
-                    <input 
+                    <input
+                        name='endDate' 
+                        id='endDate'
+                        onChange={(event) => handleChange(event, 'endDate')}
                         type="date"
                         className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'
                     />
@@ -47,7 +55,10 @@ function Dates() {
             </div>
           ) : (
             <div className='w-full'>
-                <input 
+                <input
+                    name='aDates'
+                    id='aDates'
+                    onChange={(event) => handleChange(event, 'aDates')}
                     type="date"
                     className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'
                 />

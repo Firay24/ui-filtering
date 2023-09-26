@@ -7,6 +7,7 @@ function App() {
     const [orders, setOrders] = useState(null)
     const [supliers, setSupliers] = useState(null)
     const [services, setservices] = useState(null)
+    const [filterData, setFilterData] = useState('')
 
     async function getOrder() {
       const result = await getAll()
@@ -23,11 +24,17 @@ function App() {
       setservices(result)
     }
 
+    const receiveFilterData = (data) => {
+      setFilterData(data)
+    }
+
     useEffect(() => {
       getOrder()
       getSupliers()
       getServices()
     },[])
+
+    console.log(filterData)
 
     return (
         <div className="my-10 mx-20 flex flex-col items-center">
@@ -35,7 +42,11 @@ function App() {
             Transaksi Pemesanan PT.XYZ
           </h1>
           <div className='w-full'>
-            <Filter supliers={supliers && supliers} services={services && services} />
+            <Filter 
+              supliers={supliers && supliers} 
+              services={services && services}
+              onFilterChange = {receiveFilterData}
+            />
           </div>
           <div>
             <Table data={orders && orders.data} />

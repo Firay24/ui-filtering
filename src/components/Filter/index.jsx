@@ -1,53 +1,43 @@
-import React from 'react'
+import React, { useState } from 'react'
+import Fields from './fields'
 import { AiOutlinePlusCircle } from "react-icons/ai";
-import Supplier from './supplier'
-import Service from './service';
-import Dates from './dates';
 
 function Filter({ supliers, services }) {
+  const [countComponent, setCountComponent] = useState(1)
+  const fieldsComponent = []
+
+	const handleAddButton = () => {
+		setCountComponent((prevCount) => (
+			prevCount + 1
+		))
+	}
+
+  for (let i = 0; i < countComponent; i++) {
+    const isFirst = i === 0
+    fieldsComponent.push(
+      <Fields 
+        key={i} 
+        supliers={supliers} 
+        services={services} 
+        isFirst={isFirst}
+      />
+    );
+  }
+
   return (
     <div className='w-full drop-shadow-sm py-6 px-4 bg-white border rounded'>
         <div>
             <p className='font-semibold'>Filter</p>
         </div>
-        <div className='grid grid-cols-6 mt-3 items-center'>
-            <div>
-                <p>Where</p>
-            </div>
-            <div className='grid col-span-4 w-full'>
-                <Supplier supliers={supliers && supliers} />
-            </div>
-            <div className='text-2xl text-blue-500 hover:text-gray-500 ml-3'>
-                <button>
-                    <AiOutlinePlusCircle />
-                </button>
-            </div>
-        </div>
-        <div className='grid grid-cols-6 mt-3 items-center'>
-            <div>
-                <p>Where</p>
-            </div>
-            <div className='grid col-span-4 w-full'>
-                <Service services={services && services} />
-            </div>
-            <div className='text-2xl text-blue-500 hover:text-gray-500 ml-3'>
-                <button>
-                    <AiOutlinePlusCircle />
-                </button>
-            </div>
-        </div>
-        <div className='grid grid-cols-6 mt-3 items-center'>
-            <div>
-                <p>Where</p>
-            </div>
-            <div className='grid col-span-4 w-full'>
-                <Dates />
-            </div>
-            <div className='text-2xl text-blue-500 hover:text-gray-500 ml-3'>
-                <button>
-                    <AiOutlinePlusCircle />
-                </button>
-            </div>
+        <div className='grid grid-cols-6 items-end'>
+          <div className='grid col-span-5 w-full'>
+            {fieldsComponent}
+          </div>
+          <div className='text-2xl text-blue-500 hover:text-gray-500 ml-3'>
+              <button onClick={handleAddButton}>
+                  <AiOutlinePlusCircle />
+              </button>
+          </div>
         </div>
     </div>
   )

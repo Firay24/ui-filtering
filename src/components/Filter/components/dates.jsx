@@ -24,6 +24,9 @@ function Dates({inputValue, onFieldChange}) {
                 <option value="more then">more then</option>
                 <option value="less then">less then</option>
                 <option value="between">between</option>
+                <option value="is">is</option>
+                <option value="empty">empty</option>
+                <option value="not empty">not empty</option>
             </select>
         </div>
         {
@@ -52,6 +55,8 @@ function Dates({inputValue, onFieldChange}) {
                     />
                 </div>
             </div>
+          ) : operator === 'empty' || operator === 'not empty' ? (
+            null
           ) : (
             <div className='w-full'>
                 <input

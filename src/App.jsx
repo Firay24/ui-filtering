@@ -49,18 +49,19 @@ function App() {
     },[])
 
     useEffect(() => {
+      console.log(filterData)
       if(isClick) {
         getFiltering(filterData.conditions, filterData.operators)
         setIsClick(false)
       }
-    }, [isClick, filterData]);   
+    }, [isClick, filterData]);
 
     return (
         <div className="my-10 mx-20 flex flex-col items-center">
           <h1 className="text-2xl mb-5 font-semibold">
             Transaksi Pemesanan PT.XYZ
           </h1>
-          <div className='w-full'>
+          <div className='w-full z-50'>
             <Filter 
               supliers={supliers && supliers} 
               services={services && services}
@@ -68,7 +69,7 @@ function App() {
               isClickButton={handleClickButton}
             />
           </div>
-          <div>
+          <div className='z-40'>
             <Table data={orders && orders.data} />
           </div>
         </div>

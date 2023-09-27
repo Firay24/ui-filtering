@@ -28,7 +28,6 @@ function Fields({
       [rule]: 1,
     }));
   };
-  console.log(selectRule)
   
   return (
     <div className='w-full flex'>

@@ -1,8 +1,8 @@
 import React from 'react'
+import Dropdown from './dropdown'
 
 function Service({ services, onFieldChange, selectedOption }) {
-    const handleSelectChange = (event) => {
-        const value = event.target.value
+    const handleSelectChange = (value) => {
         onFieldChange("Service", "value", value)
     }
 
@@ -28,7 +28,8 @@ function Service({ services, onFieldChange, selectedOption }) {
                 </select>
             </div>
             <div className='w-full'>
-                <select
+                <Dropdown options={services.data} onselect={handleSelectChange} />
+                {/* <select
                     value={selectedOption.value}
                     onChange={handleSelectChange}
                     name="name" 
@@ -41,7 +42,7 @@ function Service({ services, onFieldChange, selectedOption }) {
                             <option key={index} value={service}>{service}</option>
                         ))
                     }
-                </select>
+                </select> */}
             </div>
         </div>
     )

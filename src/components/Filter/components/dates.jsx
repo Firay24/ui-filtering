@@ -1,12 +1,11 @@
 function Dates({inputValue, onFieldChange}) {
   if (!inputValue) {
-      return null; // Atau tampilkan pesan kesalahan atau tindakan lain sesuai kebutuhan Anda
+      return null;
       }
   const operator = inputValue.operator
 
   const handleChange = (event, key) => {
     const operationValue = event.target.value
-    console.log(operationValue)
     onFieldChange("order_date", key, operationValue)
   }
 

@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import Table from '../src/components/Table'
 import Filter from './components/Filter'
-import { getAll, getSuplier, getService } from './api'
+import { getAll, getSuplier, getService, getFilter } from './api'
 
 function App() {
     const [orders, setOrders] = useState(null)
     const [supliers, setSupliers] = useState(null)
     const [services, setservices] = useState(null)
-    const [filterData, setFilterData] = useState('')
-
+    const [isClick, setIsClick] = useState(false)
+    const [filterData, setFilterData] = useState({
+      conditions: [],
+      operators: []
+    });
+    
     async function getOrder() {
       const result = await getAll()
       setOrders(result)
@@ -24,8 +28,18 @@ function App() {
       setservices(result)
     }
 
+    async function getFiltering (conditions, operators) {
+      const result = await getFilter(conditions, operators)
+
+      setOrders(result)
+    }
+
     const receiveFilterData = (data) => {
       setFilterData(data)
+    }
+
+    const handleClickButton = (value) => {
+      setIsClick(value)
     }
 
     useEffect(() => {
@@ -34,7 +48,12 @@ function App() {
       getServices()
     },[])
 
-    console.log(filterData)
+    useEffect(() => {
+      if(isClick) {
+        getFiltering(filterData.conditions, filterData.operators)
+        setIsClick(false)
+      }
+    }, [isClick, filterData]);   
 
     return (
         <div className="my-10 mx-20 flex flex-col items-center">
@@ -46,6 +65,7 @@ function App() {
               supliers={supliers && supliers} 
               services={services && services}
               onFilterChange = {receiveFilterData}
+              isClickButton={handleClickButton}
             />
           </div>
           <div>

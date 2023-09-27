@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Fields from './fields'
 import { AiOutlinePlusCircle } from "react-icons/ai";
 
-function Filter({ supliers, services, onFilterChange }) {
+function Filter({ supliers, services, onFilterChange, isClickButton }) {
   const [fieldsData, setFieldsData] = useState([
     {
       Supplier_Name: { operator: 'is', value: '' },
@@ -26,12 +26,6 @@ function Filter({ supliers, services, onFilterChange }) {
     if (newIndex > 0) {
       setOperatorsFields((prevOperators) => [...prevOperators, 'AND']); // Default operator (AND) for the new condition
     }
-
-    // if (newIndex > 0) {
-    //   const newOperatorsData = [...operatorsFields];
-    //   newOperatorsData.push({ [newIndex]: 'AND' }); // Default operator (AND) for the new condition
-    //   setOperatorsFields(newOperatorsData);
-    // }
   };
 
   const handleFieldChange = (index, field, key, value) => {
@@ -45,6 +39,10 @@ function Filter({ supliers, services, onFilterChange }) {
     newOperators[index] = operator;
     setOperatorsFields(newOperators);
   };
+
+  const handleIsClikButton = () => {
+    isClickButton(true)
+  }
 
   const requestBody = () => {
     const conditions = fieldsData.map((field, index) => {
@@ -93,10 +91,15 @@ function Filter({ supliers, services, onFilterChange }) {
             />
           ))}
         </div>
-        <div className='text-2xl text-blue-500 hover:text-gray-500 ml-3'>
-          <button onClick={addFields}>
+        <div className='flex text-blue-500 hover:text-gray-500 ml-3 gap-x-3'>
+          <button onClick={addFields} className='text-2xl'>
             <AiOutlinePlusCircle />
           </button>
+          <div className="">
+            <button onClick={handleIsClikButton} className="bg-blue-300 px-4 py-1 rounded-md text-gray-800 hover:bg-blue-400">
+              Cari
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react'
 import Table from '../src/components/Table'
 import Filter from './components/Filter'
 import { getAll, getSuplier, getService, getFilter } from './api'
+import Loading from './components/Loading'
 
 function App() {
     const [orders, setOrders] = useState(null)
     const [supliers, setSupliers] = useState(null)
     const [services, setservices] = useState(null)
     const [isClick, setIsClick] = useState(false)
+    const [isLoading, setIsLoading] = useState(true);
     const [filterData, setFilterData] = useState({
       conditions: [],
       operators: []
@@ -16,6 +18,7 @@ function App() {
     async function getOrder() {
       const result = await getAll()
       setOrders(result)
+      setIsLoading(false);
     }
 
     async function getSupliers() {
@@ -70,7 +73,13 @@ function App() {
             />
           </div>
           <div className='z-40'>
-            <Table data={orders && orders.data} />
+            {
+              isLoading ? (
+                <Loading />
+              ) : (
+                <Table data={orders && orders.data} />
+              )
+            }
           </div>
         </div>
     )

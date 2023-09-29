@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:5000'
+const BASE_URL = 'https://weak-ant-peplum.cyclic.cloud'
 
 async function getAll() {
     const response = await fetch(`${BASE_URL}/orders`);
